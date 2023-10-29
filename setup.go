@@ -32,6 +32,27 @@ func initDB() DB {
 	if err != nil {
 		log.Fatal("DB initialization failed: " + err.Error())
 	}
+	//defer db.conn.Close()
+	createTable()
 
 	return db
+}
+
+func createTable() {
+	sql := `
+CREATE TABLE IF NOT EXISTS alerts (
+	alert_id TEXT PRIMARY KEY,
+	service_id TEXT,
+	service_name TEXT,
+	model TEXT,
+	alert_type TEXT,
+	alert_ts INTEGER,
+	severity TEXT,
+	team_slack TEXT
+);
+`
+	_, err := db.conn.Exec(sql)
+	if err != nil {
+		log.Fatal(err)
+	}
 }

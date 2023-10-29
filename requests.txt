@@ -1,0 +1,24 @@
+Users should be able to send requests to this API to write alert data to the chosen data storage.
+1. Creat an alert.
+URL: http://localhost:8888/alerts
+Method: POST
+Headers
+X-API-KEY:The one you set in your .env that you have created.
+Content-Type:application/json
+Body:
+{
+"service_id": "my_test_service_id",
+"service_name": "my_test_service",
+"model": "my_test_model",
+"alert_type": "anomaly",
+"severity": "warning",
+"team_slack": "slack_ch"
+}
+
+2. To view alerts, required to see alert_ts for use in #3.
+URL: http://localhost:8888/list
+Method: GET
+
+3. To view service id requiring alert_ts from #2.
+URL: http://localhost:8888//alerts?service_id=my_test_service_id&start_ts=1698521301269568032&end_ts=1698521306322457739
+Method: GET
