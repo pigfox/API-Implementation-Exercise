@@ -11,5 +11,6 @@ Enter an API key in API_KEY=
 This is the key you will need to send as a header "X-API-KEY" in every request.
 
 2. Run "go mod tidy".
-3. Run "go run *.go"
+3. Run "go run *.go".
 4. See file requests.txt for API docs.
+5. Testing, in a separate terminal run "go test -v".

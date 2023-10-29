@@ -13,7 +13,6 @@ func getID() string {
 }
 
 func getTimeStamp() int64 {
-	//return strconv.FormatInt(time.Now().UTC().UnixNano(), 10)
 	return time.Now().UTC().UnixNano()
 }
 
