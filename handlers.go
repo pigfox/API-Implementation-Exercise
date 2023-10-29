@@ -9,6 +9,11 @@ import (
 )
 
 func serviceHandler(w http.ResponseWriter, req *http.Request) {
+	if req.Header.Get(apiKeyName) != key.Value {
+		w.WriteHeader(400)
+		return
+	}
+
 	serviceID := req.URL.Query().Get("service_id")
 	startTS := req.URL.Query().Get("start_ts")
 	endTS := req.URL.Query().Get("end_ts")
@@ -56,6 +61,11 @@ func serviceHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 func listHandler(w http.ResponseWriter, req *http.Request) {
+	if req.Header.Get(apiKeyName) != key.Value {
+		w.WriteHeader(400)
+		return
+	}
+
 	rows, err := db.conn.Query("SELECT alert_id, service_id, service_name, model, alert_type, alert_ts, severity, team_slack FROM alerts")
 	if err != nil {
 		log.Fatal(err)
@@ -85,6 +95,11 @@ func listHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 func createHandler(w http.ResponseWriter, req *http.Request) {
+	if req.Header.Get(apiKeyName) != key.Value {
+		w.WriteHeader(400)
+		return
+	}
+
 	reqBody, err := io.ReadAll(req.Body)
 	if err != nil {
 		fmt.Printf("Error: %s", err)

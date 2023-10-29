@@ -10,6 +10,7 @@ import (
 
 var db DB
 var key Key
+var apiKeyName = "X-API-KEY"
 
 func main() {
 	setUp()
