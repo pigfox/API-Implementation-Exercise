@@ -9,7 +9,7 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"strconv"
+	"regexp"
 	"testing"
 	"time"
 
@@ -45,10 +45,12 @@ func TestPost(t *testing.T) {
 		log.Fatalf("Unable to marshal JSON due to %s", err)
 	}
 
-	expectedLenth := 32
-	length := len(alertResponse.AlertID)
-	if length != expectedLenth {
-		t.Errorf("Expected an AlertID of "+strconv.Itoa(expectedLenth)+". Got %d", length)
+	expectedPattern := "^[0-9a-fA-F]{32}$"
+	alertIDRegex := regexp.MustCompile(expectedPattern)
+	actualPattern := regexp.QuoteMeta(alertResponse.AlertID)
+
+	if !alertIDRegex.MatchString(alertResponse.AlertID) {
+		t.Errorf("Expected an AlertID matching "+expectedPattern+". Got %s", actualPattern)
 	}
 }
 
