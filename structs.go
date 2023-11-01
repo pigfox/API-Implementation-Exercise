@@ -25,8 +25,8 @@ type ServiceResponse struct {
 
 type Alert struct {
 	AlertID     string `json:"alert_id"`
-	ServiceID   string `json:"service_id"`
-	ServiceName string `json:"service_name,omitempty"`
+	ServiceID   string `json:"service_id,omitempty"`
+	ServiceName string `json:"service_name"`
 	Model       string `json:"model"`
 	AlertType   string `json:"alert_type"`
 	AlertTS     int64  `json:"alert_ts"`

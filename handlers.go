@@ -109,6 +109,16 @@ func createHandler(w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		fmt.Printf("Error: %s", err)
 	}
+
+	var alertResponse AlertResponse
+	if alert.ServiceID == "" {
+		w.WriteHeader(400)
+		alertResponse.Error = "Service ID is a required field."
+		resp, _ := json.Marshal(alertResponse)
+		fmt.Fprintf(w, string(resp))
+		return
+	}
+
 	alert.AlertID = getID()
 	alert.AlertTS = getTimeStamp()
 
@@ -127,7 +137,6 @@ func createHandler(w http.ResponseWriter, req *http.Request) {
 		fmt.Printf("Error: %s", err)
 	}
 
-	var alertResponse AlertResponse
 	alertResponse.AlertID = alert.AlertID
 	if rowsAffected == 1 {
 		w.WriteHeader(200)
